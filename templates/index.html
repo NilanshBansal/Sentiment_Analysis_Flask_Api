@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nilansh's NLP </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <style>
+        body {
+            background-image: url("/static/img/water.jpeg");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ui container">
+        <div class="ui sizer vertical segment">
+            <h1 class="ui header" style="color:aliceblue">Nilansh's NLP Playground</h1>
+            <h3 class="ui header" style="color:pink">— Text to annotate —</h3>
+        </div>
+        <form action="/getnlpscore" method="post" class="ui form">
+            <div class="field">
+                <textarea placeholder="e.g., Python is awesome." rows='3' name="TextToAnalyse" style='resize:none;min-height:100px'></textarea>
+            </div>
+            <input type="submit" class="ui button" value="Get Sentiment" />
+        </form>
+    </div>
+
+</body>
+</html>
