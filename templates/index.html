@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Nilansh's NLP </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <style>
         body {
@@ -25,11 +24,59 @@
         </div>
         <form action="/getnlpscore" method="post" class="ui form">
             <div class="field">
-                <textarea placeholder="e.g., Python is awesome." rows='3' name="TextToAnalyse" style='resize:none;min-height:100px'></textarea>
+                <textarea id="TextToAnalyse" placeholder="e.g., Python is awesome." rows='3' name="TextToAnalyse" style='resize:none;min-height:100px'></textarea>
             </div>
             <input type="submit" class="ui button" value="Get Sentiment" />
         </form>
+        <br/><br/><br/>
+        <div id="result_sentiment" style="background-color:white;display: none" class="ui massive message" >
+        </div>
     </div>
-
+    <!-- <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div> -->
+    <!-- <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div> -->
 </body>
+
+<script>
+    $(document).ready(function () {
+
+        $('form').on('submit', function (event) {
+            $.ajax({
+                data: {
+                    TextToAnalyse: $('#TextToAnalyse').val(),
+                },
+                type: 'POST',
+                url: '/getnlpscore',
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (err) {
+                    console.log(err.statusText);
+                }
+            })
+                .done(function (data) {
+                    if (data.error) {
+                        // console.log("error: ", data.error);
+                        // $('#errorAlert').text(data.error).show();
+                        // $('#successAlert').hide();
+                    }
+                    else {
+
+                        // console.log("success: ", data.name);
+                        let html_response = '<h3>RESPONSE</h3><p>Sentiment : ' + data.sentiment + '<br/>Confidence : ' + data.confidence + '<br/>Text : ' + data.text + '</p>';
+                        $('#result_sentiment').html(html_response);
+                        $('#result_sentiment').css("display","block");
+                        // $('#successAlert').text(JSON.stringify(data)).show();
+                        // $('#errorAlert').hide();
+                    }
+
+                });
+
+            event.preventDefault();
+
+        });
+
+    });
+
+</script>
+
 </html>
